@@ -1,24 +1,5 @@
 # Jakarta Expression Language
 
-This repository contains the code for Jakarta Expression Language.
+This repository contains a JBoss fork of the main Jakarta Expression Language repository at https://github.com/eclipse-ee4j/el-ri.
 
-[Online JavaDoc](https://javadoc.io/doc/jakarta.el/jakarta.el-api/)
-
-Building
---------
-
-Jakarta Authentication can be built by executing the following from the project root:
-
-``mvn clean package``
-
-The API jar can then be found in /target.
-
-Making Changes
---------------
-
-To make changes, fork this repository, make your changes, and submit a pull request.
-
-About Jakarta Expression Language
--------------
-
-Jakarta Expression Language defines an expression language for Java applications.
+It's purpose is to allow bug fix releases if needed.
