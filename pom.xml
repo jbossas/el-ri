@@ -28,7 +28,7 @@
 
     <groupId>org.glassfish</groupId>
     <artifactId>jakarta.el</artifactId>
-    <version>3.0.3.jbossorg-1</version>
+    <version>3.0.3.jbossorg-2-SNAPSHOT</version>
     
     <name>Jakarta Expression Language 3.0</name>
     <description>
@@ -39,7 +39,7 @@
 
     <properties>
         <!-- the bundle build number must be the same as the maven number -->
-        <bundle.version>3.0.3.jbossorg-1</bundle.version>
+        <bundle.version>3.0.3.jbossorg-2</bundle.version>
         <!-- The most current api version -->
         <spec.version>3.0</spec.version>
         <extensionName>javax.el</extensionName>
