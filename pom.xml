@@ -94,11 +94,11 @@
     </mailingLists>
     
     <scm>
-        <connection>scm:git:https://github.com/eclipse-ee4j/el-ri.git</connection>
+        <connection>scm:git:https://github.com/jbossas/el-ri.git</connection>
         <developerConnection>
-            scm:git:git@github.com:eclipse-ee4j/el-ri.git
+            scm:git:git@github.com:jbossas/el-ri.git
         </developerConnection>
-        <url>https://github.com/eclipse-ee4j/el-ri</url>
+        <url>https://github.com/jbossas/el-ri</url>
         <tag>HEAD</tag>
     </scm>
     
