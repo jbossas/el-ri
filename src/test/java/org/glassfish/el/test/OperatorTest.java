@@ -20,12 +20,12 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import javax.el.ELProcessor;
+
 import javax.el.ELManager;
-import javax.el.ExpressionFactory;
+import javax.el.ELProcessor;
 import javax.el.ValueExpression;
-import javax.el.MethodExpression;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -34,6 +34,7 @@ import javax.el.MethodExpression;
 public class OperatorTest {
     
     static ELProcessor elp;
+    static ELManager elm;
 
     public OperatorTest() {
     }
@@ -41,6 +42,7 @@ public class OperatorTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         elp = new ELProcessor();
+        elm = elp.getELManager();
     }
 
     @AfterClass
@@ -97,14 +99,14 @@ public class OperatorTest {
     public void testMisc() {
         testExpr("quote", "\"'\"", "'");
         testExpr("quote", "'\"'", "\"");
-        ELManager elm = elp.getELManager();
-        ValueExpression v = elm.getExpressionFactory().createValueExpression(
-                elm.getELContext(), "#${1+1}", Object.class);
-        Object ret = v.getValue(elm.getELContext());
-        assertEquals(ret, "#2");
+
+        assertEquals("#2", evaluateExpression("#${1+1}"));
+        assertEquals("#2", evaluateExpression("##{1+1}"));
+        assertEquals("$2", evaluateExpression("$${1+1}"));
+        assertEquals("$2", evaluateExpression("$#{1+1}"));
         
         elp.setVariable("debug", "true");
-        ret = elp.eval("debug == true");
+        Object ret = elp.eval("debug == true");
 //        elp.eval("[1,2][true]"); // throws IllegalArgumentExpression
 /*        
         elp.defineBean("date", new Date(2013, 1,2));
@@ -125,5 +127,31 @@ public class OperatorTest {
         testExpr("coerce '01'", "'01' == 1", Boolean.TRUE);
         testExpr("coerce '01'", "1 == '01'", Boolean.TRUE);
         testExpr("coerce '01.10'", "'01.10' == 1.10", Boolean.TRUE);
+    }
+
+    @Test
+    public void testEscape01() {
+        assertEquals("$${1+1}", evaluateExpression("$\\${1+1}"));
+    }
+
+    @Test
+    public void testEscape02() {
+        assertEquals("$#{1+1}", evaluateExpression("$\\#{1+1}"));
+    }
+
+    @Test
+    public void testEscape03() {
+        assertEquals("##{1+1}", evaluateExpression("#\\#{1+1}"));
+    }
+
+    @Test
+    public void testEscape04() {
+        assertEquals("#${1+1}", evaluateExpression("#\\${1+1}"));
+    }
+
+    private String evaluateExpression(String expr) {
+        ValueExpression v = ELManager.getExpressionFactory().createValueExpression(
+                elm.getELContext(), expr, String.class);
+        return (String) v.getValue(elm.getELContext());
     }
 }
